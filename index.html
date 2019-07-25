@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    body {
+        margin: 0 auto;
+        width: 80%;
+    }
+    .jumbotron {
+        height: 350px;
+        text-align: center;
+        background-image: url("https://www.etftrends.com/wp-content/uploads/2018/02/Finanical-Planning-for-Train-stock-options..jpg");
+        background-position: 0% 40%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .card {
+        margin-bottom: 30px;
+    }
+    </style>
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid rounded">
+        <div class="container">
+            <h1 class="display-4">Train Data Management</h1>
+            <p class="lead">A Comprehensive Directory of Train Arrival Times</p>
+        </div>
+    </div>
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            Current Trains
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Mins away</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            Add Train</div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <form id='myForm'>
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Train Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" id="role" class="form-control" placeholder="Role">
+                        </div>
+                        <div class="form-group">
+                            <label>First Train Time</label>
+                            <input type="text" id="start" class="form-control" placeholder="Start Date">
+                        </div>
+                        <div class="form-group">
+                            <label>Frequency Min</label>
+                            <input type="text" id="rate" class="form-control" placeholder="Monthly Rate">
+                        </div>
+                        <button type="submit" id="submit" class="btn btn-primary float-right">Submit</button>
+                    </fieldset>
+    </div>
+    </form>
+    </li>
+    </ul>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+            var firebaseConfig = {
+                apiKey: "AIzaSyAcJPwTix5VINlV5F0sBKl0xuHB7xtVr78",
+                authDomain: "test-project-d106a.firebaseapp.com",
+                databaseURL: "https://test-project-d106a.firebaseio.com",
+                projectId: "test-project-d106a",
+                storageBucket: "",
+                messagingSenderId: "443754808959",
+                appId: "1:443754808959:web:928746af1a193d4e"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            // Create a variable to reference the database
+            var database = firebase.database();
+// pulling the data from the database
+            database.ref().on("child_added", function (snapshot) {
+                var id = snapshot.val()
+                console.log(id);
+                //Putting data from the database into variables
+                var name = id.name;
+                var role = id.role;
+                var monthlyRate = id.monthlyRate;
+                var startDate = id.startDate;
+                // putting the variabeles in the DOM
+                var tBody = $(".table");
+                var tRow = $("<tr>");
+                var empName = $("<th>").text(name);
+                var roleDisplay = $("<th>").text(role);
+                var startDateDisplay = $("<th>").text(startDate);
+                var monthWorked = $("<th>").text("TBD");
+                var monthtlyRateDisplay = $("<th>").text(monthlyRate);
+                var totalBilled = $("<th>").text("TBD");
+                // Append the newly created table data to the table row
+                tRow.append(empName, roleDisplay, startDateDisplay, monthWorked, monthtlyRateDisplay, totalBilled);
+                // Append the table row to the table body
+                tBody.append(tRow);
+            });
+            $("#submit").on("click", function (event) {
+                event.preventDefault();
+                var TrainName = $("#name").val().trim();
+                var role = $("#role").val().trim();
+                var startDate = $("#start").val().trim();
+                var monthlyRate = $("#rate").val().trim();
+    // empties the form after you hit the submit button //
+                $('input').val("");
+                console.log(TrainName),
+                    console.log(role),
+                    console.log(startDate),
+                    console.log(monthlyRate),
+                    database.ref().push({
+                        name: TrainName,
+                        role: role,
+                        startDate: startDate,
+                        monthlyRate: monthlyRate,
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
