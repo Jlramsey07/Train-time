@@ -98,66 +98,7 @@
      https://firebase.google.com/docs/web/setup#config-web-app -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./app.js"></script>
-    <script>
-        $(document).ready(function () {
-            console.log("ready!");
-            var firebaseConfig = {
-                apiKey: "AIzaSyAcJPwTix5VINlV5F0sBKl0xuHB7xtVr78",
-                authDomain: "test-project-d106a.firebaseapp.com",
-                databaseURL: "https://test-project-d106a.firebaseio.com",
-                projectId: "test-project-d106a",
-                storageBucket: "",
-                messagingSenderId: "443754808959",
-                appId: "1:443754808959:web:928746af1a193d4e"
-            };
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            // Create a variable to reference the database
-            var database = firebase.database();
-// pulling the data from the database
-            database.ref().on("child_added", function (snapshot) {
-                var id = snapshot.val()
-                console.log(id);
-                //Putting data from the database into variables
-                var name = id.name;
-                var role = id.role;
-                var monthlyRate = id.monthlyRate;
-                var startDate = id.startDate;
-                // putting the variabeles in the DOM
-                var tBody = $(".table");
-                var tRow = $("<tr>");
-                var empName = $("<th>").text(name);
-                var roleDisplay = $("<th>").text(role);
-                var startDateDisplay = $("<th>").text(startDate);
-                var monthWorked = $("<th>").text("TBD");
-                var monthtlyRateDisplay = $("<th>").text(monthlyRate);
-                var totalBilled = $("<th>").text("TBD");
-                // Append the newly created table data to the table row
-                tRow.append(empName, roleDisplay, startDateDisplay, monthWorked, monthtlyRateDisplay, totalBilled);
-                // Append the table row to the table body
-                tBody.append(tRow);
-            });
-            $("#submit").on("click", function (event) {
-                event.preventDefault();
-                var TrainName = $("#name").val().trim();
-                var role = $("#role").val().trim();
-                var startDate = $("#start").val().trim();
-                var monthlyRate = $("#rate").val().trim();
-    // empties the form after you hit the submit button //
-                $('input').val("");
-                console.log(TrainName),
-                    console.log(role),
-                    console.log(startDate),
-                    console.log(monthlyRate),
-                    database.ref().push({
-                        name: TrainName,
-                        role: role,
-                        startDate: startDate,
-                        monthlyRate: monthlyRate,
-                    });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="./assets/javascript/train.js"></script>
+    
 </body>
 </html>
