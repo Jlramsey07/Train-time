@@ -1,7 +1,14 @@
-.jumbotron { 
+#picture { 
 
     background-image: url("../images/download.jpeg");
-    color: white;
+    color: black;
     
     
+}
+#words { 
+    color:white;
+    
+}
+h1{ 
+    color: blue;
 }
